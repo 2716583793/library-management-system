@@ -1,0 +1,159 @@
+/*
+SQLyog Community v13.1.6 (64 bit)
+MySQL - 8.0.23 : Database - book_project
+*********************************************************************
+*/
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`book_project` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+USE `book_project`;
+
+/*Table structure for table `book_admin` */
+
+DROP TABLE IF EXISTS `book_admin`;
+
+CREATE TABLE `book_admin` (
+  `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
+  `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
+  PRIMARY KEY (`username`),
+  UNIQUE KEY `UNIQUE` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `book_admin` */
+
+insert  into `book_admin`(`username`,`password`) values
+('root','123456');
+
+/*Table structure for table `book_info` */
+
+DROP TABLE IF EXISTS `book_info`;
+
+CREATE TABLE `book_info` (
+  `bookId` int NOT NULL AUTO_INCREMENT COMMENT '图书id',
+  `bookName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '图书名称',
+  `author` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '图书作者',
+  `gender` varchar(5) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '作者性别',
+  `price` double(50,2) unsigned NOT NULL COMMENT '图书价格',
+  `bookNum` int unsigned NOT NULL COMMENT '库存数量',
+  `typeName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '图书类别',
+  `bookDesc` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '图书描述',
+  PRIMARY KEY (`bookId`),
+  UNIQUE KEY `UNIQUE` (`bookName`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+/*Data for the table `book_info` */
+
+insert  into `book_info`(`bookId`,`bookName`,`author`,`gender`,`price`,`bookNum`,`typeName`,`bookDesc`) values
+(1,'《中华人民共和国民法典》','中国人民出版社','男',109.90,19,'D 政治、法律','《中华人民共和国民法典》被称为“社会生活的百科全书”，是新中国第一部以法典命名的法律，在法律体系中居于基础性地位，也是市场经济的基本法。 《中华人民共和国民法典》共7编、1260条，各编依次为总则、物权、合同、人格权、婚姻家庭、继承、侵权责任，以及附则。通篇贯穿以人民为中心的发展思想，着眼满足人民对美好生活的需要，对公民的人身权、财产权、人格权等作出明确翔实的规定，并规定侵权责任，明确权利受到削弱、减损、侵害时的请求权和救济权等，体现了对人民权利的充分保障，被誉为“新时代人民权利的宣言书”。 2020年5月28日，十三届全国人大三次会议表决通过了《中华人民共和国民法典》，自2021年1月1日起施行。婚姻法、继承法、民法通则、收养法、担保法、合同法、物权法、侵权责任法、民法总则同时废止。'),
+(2,'《人间失格》','（日）太宰治','男',40.00,20,'I 文学','《人间失格》（又名《丧失为人的资格》）日本小说家太宰治创作的中篇小说，发表于1948年，是一部半自传体的小说。\n《人间失格》以“我”看到叶藏的三张照片后的感想开头，中间是叶藏的三篇手记，而三篇手记与照片对应，分别介绍了叶藏幼年、青年和壮年时代的经历，描述了叶藏是如何一步一步走向丧失为人资格的道路的。\n作品中太宰治巧妙地将自己的人生与思想，隐藏于主角叶藏的人生遭遇，藉由叶藏的独白，窥探太宰治的内心世界——“充满了可耻的一生”。在发表该作品的同年，太宰治自杀身亡。'),
+(3,'《JAVA》','北大出版社','男',56.50,20,'G 文化、科学、教育、体育','JAVA语言概述'),
+(4,'《C语言程序设计》','清华大学出版社','男',45.90,19,'G 文化、科学、教育、体育','C语言概述');
+
+/*Table structure for table `book_lend` */
+
+DROP TABLE IF EXISTS `book_lend`;
+
+CREATE TABLE `book_lend` (
+  `lendId` int NOT NULL AUTO_INCREMENT COMMENT '借阅id',
+  `bookName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '图书名称',
+  `userName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '借阅者名称',
+  `lendDate` date NOT NULL COMMENT '借阅日期',
+  `returnDate` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '归还日期',
+  PRIMARY KEY (`lendId`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+/*Data for the table `book_lend` */
+
+insert  into `book_lend`(`lendId`,`bookName`,`userName`,`lendDate`,`returnDate`) values
+(1,'《中华人民共和国民法典》','root','2021-07-01','2021-07-19'),
+(2,'《JAVA》','root','2021-07-03','未归还'),
+(3,'《C语言程序设计》','user','2021-07-03','2021-07-23'),
+(4,'《人间失格》','user','2021-07-06','2021-08-01'),
+(5,'《JAVA》','user','2021-07-24','未归还'),
+(6,'《人间失格》','root','2021-08-01','未归还');
+
+/*Table structure for table `book_type` */
+
+DROP TABLE IF EXISTS `book_type`;
+
+CREATE TABLE `book_type` (
+  `typeId` int NOT NULL AUTO_INCREMENT COMMENT '类别id',
+  `typeName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '类别名称',
+  `typeDesc` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '类别描述',
+  PRIMARY KEY (`typeId`),
+  UNIQUE KEY `UNIQUE` (`typeName`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+/*Data for the table `book_type` */
+
+insert  into `book_type`(`typeId`,`typeName`,`typeDesc`) values
+(1,'A 马克思主义、列宁主义、毛泽东思想、邓小平理论','A 马克思主义、列宁主义、毛泽东思想、邓小平理论'),
+(2,'B 哲学、宗教','B 哲学、宗教'),
+(3,'C 社会科学总论','C 社会科学总论'),
+(4,'D 政治、法律','D 政治、法律'),
+(5,'E 军事','E 军事'),
+(6,'F 经济','F 经济'),
+(7,'G 文化、科学、教育、体育','G 文化、科学、教育、体育'),
+(8,'H 语言、文字','H 语言、文字'),
+(9,'I 文学','I 文学'),
+(10,'J 艺术','J 艺术'),
+(11,'K 历史、地理','K 历史、地理'),
+(12,'N 自然科学总论','N 自然科学总论'),
+(13,'O 数理科学和化学','O 数理科学和化学'),
+(14,'P 天文学、地球科学','P 天文学、地球科学'),
+(15,'Q 生物科学','Q 生物科学'),
+(16,'R 医药、卫生','R 医药、卫生'),
+(17,'S 农业科学','S 农业科学'),
+(18,'T 工业技术','T 工业技术'),
+(19,'U 交通运输','U 交通运输'),
+(20,'V 航空、航天','V 航空、航天'),
+(21,'X 环境科学、安全科学','X 环境科学、安全科学'),
+(22,'Z 综合性图书','Z 综合性图书'),
+(23,'TB 一般工业技术','TB 一般工业技术'),
+(24,'TD 矿业工程','TD 矿业工程'),
+(25,'TE 石油、天然气工业','TE 石油、天然气工业'),
+(26,'TF 冶金工业','TF 冶金工业'),
+(27,'TG 金属学与金属工艺','TG 金属学与金属工艺'),
+(28,'TH 机械、仪表工业','TH 机械、仪表工业'),
+(29,'TJ 武器工业','TJ 武器工业'),
+(30,'TK 能源与动力工程','TK 能源与动力工程'),
+(31,'TL 电子能技术','TL 电子能技术'),
+(32,'TM 电工技术','TM 电工技术'),
+(33,'TN 光线电电子学、电信技术','TN 光线电电子学、电信技术'),
+(34,'TP 自动化技术、计算机技术','TP 自动化技术、计算机技术'),
+(35,'TQ 化学工业','TQ 化学工业'),
+(36,'TS 轻工业、手工业','TS 轻工业、手工业'),
+(37,'TU 建筑科学','TU 建筑科学'),
+(38,'TV 水利工程','TV 水利工程');
+
+/*Table structure for table `book_user` */
+
+DROP TABLE IF EXISTS `book_user`;
+
+CREATE TABLE `book_user` (
+  `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
+  `password` varchar(20) NOT NULL COMMENT '密码',
+  PRIMARY KEY (`username`),
+  UNIQUE KEY `UNIQUE` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `book_user` */
+
+insert  into `book_user`(`username`,`password`) values
+('user','123456'),
+('user1','123456'),
+('user2','123456'),
+('user3','123456');
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
